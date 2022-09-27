@@ -9,13 +9,11 @@
 #        process    : get process
 #        vc         : volume control
 
-PARENT_BAR_PID=$(pgrep -a "polybar" | cut -d" " -f1)
 PLAYERS=($(playerctl -l 2>/dev/null))
 FORMAT="'{{ title }} - {{ artist }}'"
 FORMAT_PROCESS="'{{ duration(position)}}/{{duration(mpris:length) }}'"
 PLAYER_STATUS=-1
 CUR_PLAYER=$(cat ~/.config/polybar/.curplayer.log)
-EXIT_CODE=$?
 
 update_players() {
     PLAYERS=($(playerctl -l 2>/dev/null))
@@ -126,30 +124,22 @@ get_icon() {
 }
 
 update_state
-if [ "$1" == "--icon" ]; then
-    menu_icon
-elif [ "$1" == "--select" ]; then
-    show_menu_selector
-elif [ "$1" == "--title" ]; then
-    if [ $PLAYER_STATUS -eq -1 ]; then
-        echo "PLAYER NOT FOUND"
-    elif [ $PLAYER_STATUS -eq 0 ]; then
-        echo "NO MUSIC IS PLAYING"
-    else
-        get_title
-    fi
-elif [ "$1" == "--process" ]; then
-    if [ $PLAYER_STATUS -eq 1 ]; then
-        get_process
-    else
-        echo ""
-    fi
-elif [ "$1" == "--playpause" ]; then
-    toggle_play
-elif [ "$1" == "--next" ]; then
-    to_next
-elif [ "$1" == "--previous" ]; then
-    to_previous
-elif [ "$1" == "--vc" ]; then
-    to_volume $2
-fi
+case "$1" in
+    icon) menu_icon;;
+    select) show_menu_selector;;
+    title) if [[ $PLAYER_STATUS -eq -1 ]]; then
+               echo "PLAYER NOT FOUND"
+           elif [[ $PLAYER_STATUS -eq 0 ]]; then
+               echo "NO MUSIC IS PLAYING"
+           else
+               get_title
+           fi;;
+    process) if [[ $PLAYER_STATUS -eq 1 ]]; then
+                 get_process
+             else
+                 echo ""
+             fi;;
+    next) to_next;;
+    previous) to_previous;;
+    vc) to_volume;;
+esac
