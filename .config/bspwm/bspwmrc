@@ -25,8 +25,9 @@ killall pasystray
 killall dunst
 killall sxhkd
 killall ibus-daemon
+killall greenclip
 
-wal -i "/home/foxeiz/Downloads/bg/f29ed167861796c03485239f846dba8c.png" -t
+wal -i "/home/foxeiz/Downloads/bg/f29ed167861796c03485239f846dba8c.png" -t -s
 # . "${HOME}/.cache/wal/colors.sh"
 # feh --bg-fill $DOTTIES_DIR/desktop.jpg
 polybar -c $HOME/.config/polybar/config.ini top_left &
@@ -41,6 +42,7 @@ nm-applet &
 pasystray &
 dunst &
 ibus-daemon -drx &
+greenclip daemon &
 # $HOME/.bscripts/sounds.sh &
 # ================================
 
