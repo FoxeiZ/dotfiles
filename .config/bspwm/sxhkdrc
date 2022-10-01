@@ -25,6 +25,15 @@ Print
 super + shift + s
     $HOME/dotties/flameshot.sh
 
+super + v
+    rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
+super + alt + v
+    pkill greenclip && \
+    greenclip clear && \
+    notify-send "greenclip" "Cleared clipboard" --expire-time=2000 && \
+    greenclip daemon &
+
 @XF86AudioMute
     pactl set-sink-mute @DEFAULT_SINK@ toggle && \
     stat=`pacmd list-sinks | awk '/muted/ \{print $2\}'` && \
