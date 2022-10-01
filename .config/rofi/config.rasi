@@ -59,14 +59,15 @@ mainbox {
     enabled:                     true;
     spacing:                     0px;
     background-color:            transparent;
-    orientation:                 horizontal;
-    children:                    [ "imagebox", "listbox" ];
+    orientation:                 vertical;
+    children:                    [ "inputbar", "listbox", "mode-switcher" ];
 }
 
 imagebox {
+    enabled:                     false;
     padding:                     20px;
     background-color:            transparent;
-    background-image:            url("~/dotties/logo.jpg", height);
+    /*background-image:            url("~/dotties/logo.jpg", height);*/
     orientation:                 vertical;
     children:                    [ "inputbar", "dummy", "mode-switcher" ];
 }
